@@ -10,22 +10,9 @@
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-;;; Code:
-(defvar current-user
-      (getenv
-       (if (equal system-type 'windows-nt) "USERNAME" "USER")))
-
-(message "Prelude is powering up... Be patient, Master %s!" current-user)
-
-
-
-
-;; reduce the frequency of garbage collection by making it happen on
-;; each 50MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 50000000)
-
-
+;; UI
 (menu-bar-mode -1)
+
 
 ; turn on line number display
 (global-linum-mode t)
@@ -35,13 +22,16 @@
 (require 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/dict")
 (require 'auto-complete-config)
- (ac-config-default)
+(ac-config-default)
 
 ;; Evil
 (require 'evil)
 (evil-mode 1)
+
 ;; Perl
 
 (setq cperl-hairy t) ;; Turns on most of the CPerlMode options
 (setq guru-warn-only t) ;; only show warn 
 
+;;theme
+(load-theme 'solarized-dark t)
