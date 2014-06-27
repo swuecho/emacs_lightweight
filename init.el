@@ -6,25 +6,28 @@
 ;;
 ;;;; so can load packages
 (require 'package)
+; this line is necesary to add elpa the module load path
 (package-initialize)
+
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; UI
 (menu-bar-mode -1)
 
-
 ; turn on line number display
 (global-linum-mode t)
 (setq linum-format "%3d  ")
 
 ;; auto complete
+;; have to require here or can not fin auto-complete
 (require 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/dict")
 (require 'auto-complete-config)
 (ac-config-default)
 
 ;; Evil
+;; have to requrire evil
 (require 'evil)
 (evil-mode 1)
 
