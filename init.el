@@ -33,6 +33,10 @@
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;; ido-mode
+(require 'ido)
+(ido-mode t)
 ;; Perl
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-hairy t) ;; Tqurns on most of the CPerlMode options
