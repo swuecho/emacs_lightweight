@@ -31,9 +31,11 @@
 (require 'evil)
 (evil-mode 1)
 
+;; Magit
+(global-set-key (kbd "C-x g") 'magit-status)
 ;; Perl
-
-(setq cperl-hairy t) ;; Turns on most of the CPerlMode options
+(defalias 'perl-mode 'cperl-mode)
+(setq cperl-hairy t) ;; Tqurns on most of the CPerlMode options
 (setq guru-warn-only t) ;; only show warn 
 
 ;;theme
