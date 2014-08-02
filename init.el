@@ -1,4 +1,4 @@
-;;; init.el --- Prelude's configuration entry point.
+;;; init.el 
 ;;; no copy right
 
 ;; Author: Hao Wu <echowuhao@gmail.com>
@@ -19,17 +19,18 @@
 (global-linum-mode t)
 (setq linum-format "%3d  ")
 
+;; Evil
+;; have to requrire evil
+(require 'evil)
+(evil-mode 1)
+
 ;; auto complete
-;; have to require here or can not fin auto-complete
+;; have to require here or can not find auto-complete
 (require 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/dict")
 (require 'auto-complete-config)
 (ac-config-default)
 
-;; Evil
-;; have to requrire evil
-(require 'evil)
-(evil-mode 1)
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -44,3 +45,6 @@
 
 ;;theme
 (load-theme 'solarized-dark t)
+
+;; key binding
+(global-set-key (kbd "C-x C-b") 'ibuffer)
