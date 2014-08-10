@@ -5,8 +5,7 @@
 3. color-theme-solarized
 4. magit
 
-;; run this command to install all this three package
-(mapc #'package-install [evil magit auto-complete color-them-solarised])
+add package to package-list, it will be autoinstalled if not already
 
 # elisp
 

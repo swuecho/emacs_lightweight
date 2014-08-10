@@ -7,10 +7,28 @@
 ;;;; so can load packages
 (require 'package)
 ; this line is necesary to add elpa the module load path
-(package-initialize)
-
+;; more about auto install package http://stackoverflow.com/questions/10092322
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(package-initialize)
+; fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents)) 
+;; package-refesh-conetents is important
+;; add package here 
+(setq package-list '(evil auto-complete magit color-theme-solarized))
+;; install packages 
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+;;
+;;(mapc
+;; (lambda (package)
+;;   (or (package-installed-p package)
+;;       (package-install package)))
+;;     package-list)
 
 ;; UI
 (menu-bar-mode -1)
