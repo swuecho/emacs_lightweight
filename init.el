@@ -48,3 +48,16 @@
 
 ;; key binding
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; copied from prelude
+
+(defvar current-dir (file-name-directory load-file-name)
+  "The root dir of the Emacs Prelude distribution.")
+
+(defvar prelude-third-party (expand-file-name "third-party" current-dir)
+    "The home of Prelude's core functionality.")
+(add-to-list 'load-path prelude-third-party)
+
+(require 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)

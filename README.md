@@ -17,3 +17,6 @@
 (length "foobar")
 
 (length [1 2 3])
+=======
+# DONE: auto install these module
+# TODO: start server problem in emacs
