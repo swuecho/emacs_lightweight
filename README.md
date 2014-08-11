@@ -16,6 +16,16 @@ add package to package-list, it will be autoinstalled if not already
 (length "foobar")
 
 (length [1 2 3])
-=======
 # DONE: auto install these module
 # TODO: start server problem in emacs
+
+(arrayp "asdf")
+
+(setq s "When in the course")
+               ⇒ "When in the course"
+(fillarray s ?-)
+;; what is ? represent?
+
+(symbol-name 'foo)
+foo
+
