@@ -7,10 +7,28 @@
 ;;;; so can load packages
 (require 'package)
 ; this line is necesary to add elpa the module load path
-(package-initialize)
-
+;; more about auto install package http://stackoverflow.com/questions/10092322
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(package-initialize)
+; fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents)) 
+;; package-refesh-conetents is important
+;; add package here 
+(setq package-list '(evil auto-complete magit color-theme-solarized))
+;; install packages 
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+;;
+;;(mapc
+;; (lambda (package)
+;;   (or (package-installed-p package)
+;;       (package-install package)))
+;;     package-list)
 
 ;; UI
 (menu-bar-mode -1)
@@ -35,9 +53,18 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
+
+;;(require 'ffap)
+;;(ffap-bindings)
+;;(setq ffap-require-prefix t)
+
 ;; ido-mode
 (require 'ido)
-(ido-mode t)
+(ido-mode t); enable ido-mode
+(setq ido-enable-flex-matching t); flexibly match names
+(setq ido-everywhere t); use ido-mode everywhere, in buffers and for finding files
+(setq ido-use-filename-at-point 'guess); for find-file-at-point
+
 ;; Perl
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-hairy t) ;; Tqurns on most of the CPerlMode options
@@ -49,15 +76,27 @@
 ;; key binding
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+
+
 ;; copied from prelude
-
+;; find the current-dir
 (defvar current-dir (file-name-directory load-file-name)
-  "The root dir of the Emacs Prelude distribution.")
+  "The dir of this file, i.e. .emacs.d")
 
-(defvar prelude-third-party (expand-file-name "third-party" current-dir)
-    "The home of Prelude's core functionality.")
-(add-to-list 'load-path prelude-third-party)
+(defvar third-party-package-dir (expand-file-name "third-party" current-dir)
+    "The home of third party dir")
 
+(add-to-list 'load-path third-party-package-dir)
+
+;;; ack ;;;;
+(require 'ack-and-a-half)
+;; Create shorter aliases
+(defalias 'ack 'ack-and-a-half)
+(defalias 'ack-same 'ack-and-a-half-same)
+(defalias 'ack-find-file 'ack-and-a-half-find-file)
+(defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
+
+;;; keyfreq ;;;
 (require 'keyfreq)
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
