@@ -61,3 +61,9 @@
 (require 'keyfreq)
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
+
+;;(add-to-list 'load-path "/Users/hwu/.opam/4.02.0/share/emacs/site-lisp")
+;;(require 'ocp-indent)
+
+(add-to-list 'load-path "/Users/hwu/.opam/4.02.0/share/tuareg")
+(load "tuareg-site-file")
