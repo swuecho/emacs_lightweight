@@ -13,8 +13,6 @@
 ;; This package provides a minor mode to frobnicate and/or
 ;; bifurcate any flanges you desire.  To activate it, just type
 
-
-
 ;;(require 'auto-complete-config)
 ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auot-complete/dict")
 ;;(require 'auto-complete-config)
@@ -37,6 +35,20 @@
   (insert "\n") 
   ) 
 
+;; case transformation
+(defun un-camelcase-word-at-point ()
+  "un-camelcase the word at point, replacing uppercase chars with
+the lowercase version preceded by an underscore.
+
+The first char, if capitalized (eg, PascalCase) is just
+downcased, no preceding underscore.
+"
+  (interactive)
+  (save-excursion
+    (let ((bounds (bounds-of-thing-at-point 'word)))
+      (replace-regexp "\\([A-Z]\\)" "_\\1" nil
+                      (1+ (car bounds)) (cdr bounds))
+      (downcase-region (car bounds) (cdr bounds)))))
 
 ;; from http://tuxicity.se/emacs/elisp/2010/11/16/delete-file-and-buffer-in-emacs.html
 ;; TODO: set key binding

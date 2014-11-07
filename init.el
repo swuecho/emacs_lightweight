@@ -33,6 +33,8 @@
 ;; UI
 (menu-bar-mode -1)
 
+;;autoreload
+(global-auto-revert-mode 1)
 ; turn on line number display
 (global-linum-mode t)
 (setq linum-format "%3d  ")
@@ -103,9 +105,11 @@
 
 ;;(add-to-list 'load-path "/Users/hwu/.opam/4.02.0/share/emacs/site-lisp")
 ;;(require 'ocp-indent)
-
-(add-to-list 'load-path "/Users/hwu/.opam/4.02.0/share/tuareg")
+;; TODO define home dir
+(add-to-list 'load-path "~/.opam/4.02.0/share/tuareg")
 (load "tuareg-site-file")
+
+;; smex
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
