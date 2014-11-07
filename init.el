@@ -17,7 +17,7 @@
   (package-refresh-contents)) 
 ;; package-refesh-conetents is important
 ;; add package here 
-(setq package-list '(evil auto-complete magit color-theme-solarized))
+(setq package-list '(evil smex  auto-complete magit color-theme-solarized))
 ;; install packages 
 ; install the missing packages
 (dolist (package package-list)
@@ -106,3 +106,7 @@
 
 (add-to-list 'load-path "/Users/hwu/.opam/4.02.0/share/tuareg")
 (load "tuareg-site-file")
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
