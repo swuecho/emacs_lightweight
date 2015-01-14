@@ -5,6 +5,9 @@
 ;; Version: 0.1
 ;;
 ;;;; so can load packages
+;;;
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; load repo source and install package ;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 ; this line is necesary to add elpa the module load path
 ;; more about auto install package http://stackoverflow.com/questions/10092322
@@ -17,12 +20,18 @@
   (package-refresh-contents)) 
 ;; package-refesh-conetents is important
 ;; add package here 
-(setq package-list '(evil evil-leader smex auto-complete magit color-theme-solarized git-messenger js2-mode))
+(setq package-list '(evil evil-leader smex auto-complete magit color-theme-solarized js2-mode))
+
 ;; install packages 
 ; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+
+
+
+;;;;;;;;;;;;;;;;UI;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;(mapc
 ;; (lambda (package)
@@ -39,9 +48,24 @@
 ;;(diminish 'rainbow-mode)
 
 
+
+;;;;;;;;;;;;;;; find file ;;;;;;;;;;;;;;;;;
+;;(require 'ffap)
+;;(ffap-bindings)
+;;(setq ffap-require-prefix t)
+
+;; ido-mode
+(require 'ido)
+(ido-mode t); enable ido-mode
+(setq ido-enable-flex-matching t); flexibly match names
+(setq ido-everywhere t); use ido-mode everywhere, in buffers and for finding files
+(setq ido-use-filename-at-point 'guess); for find-file-at-point
+
+
 ;
 ;;autoreload
 (global-auto-revert-mode 1)
+
 ; turn on line number display
 (global-linum-mode t)
 
@@ -61,16 +85,8 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;;(require 'ffap)
-;;(ffap-bindings)
-;;(setq ffap-require-prefix t)
+;;;;;;;;;;;;;;;;; Programming Lang settings;;;;;;;;;;;
 
-;; ido-mode
-(require 'ido)
-(ido-mode t); enable ido-mode
-(setq ido-enable-flex-matching t); flexibly match names
-(setq ido-everywhere t); use ido-mode everywhere, in buffers and for finding files
-(setq ido-use-filename-at-point 'guess); for find-file-at-point
 
 (require 'flymake)
 ;; Perl
@@ -93,28 +109,6 @@
 ;; key binding
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-
-
-;; copied from prelude
-;; find the current-dir
-(defvar current-dir (file-name-directory load-file-name)
-  "The dir of this file, i.e. .emacs.d")
-
-(defvar third-party-package-dir (expand-file-name "third-party" current-dir)
-    "The home of third party dir")
-(defvar echo-dir (expand-file-name "personal" current-dir)
-    "The home of my own init files")
-(add-to-list 'load-path third-party-package-dir)
-(add-to-list 'load-path echo-dir)
-(require 'echo)
-(require 'kolon-mode)
-;;; ack ;;;;
-;;(require 'ack-and-a-half)
-;; Create shorter aliases
-;;(defalias 'ack 'ack-and-a-half)
-;;(defalias 'ack-same 'ack-and-a-half-same)
-;;(defalias 'ack-find-file 'ack-and-a-half-find-file)
-;;(defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 
 ;; smex
 (global-set-key (kbd "M-x") 'smex)
@@ -172,6 +166,8 @@
     'smart-compile-alist
     '("\\.pm\\'"   .   "perl -cw %f"))
 
+
+;;;;;;;;;;;;;; SQL ;;;;;;;;;;;;;;;;;;;
 (add-to-list 'same-window-buffer-names "*SQL*")
 (require 'sql)
 (defalias 'sql-get-login 'ignore)
@@ -191,9 +187,7 @@
 
   (add-hook 'sql-interactive-mode-hook 'my-sql-save-history-hook)
 
-
-
-
+;;;;;;;;;;;; Persistent
 ;;;;;; save scratch
 (defun save-persistent-scratch ()
     "Write the contents of *scratch* to the file name
@@ -214,7 +208,6 @@
 
 (run-with-idle-timer 300 t 'save-persistent-scratch)
 
-
 ;; save desktop
 (desktop-save-mode 1)
 
@@ -229,6 +222,27 @@
 
 (run-with-idle-timer 300 t 'echo-desktop-save)
 
+
+;; copied from prelude
+;; find the current-dir
+(defvar current-dir (file-name-directory load-file-name)
+  "The dir of this file, i.e. .emacs.d")
+
+(defvar third-party-package-dir (expand-file-name "third-party" current-dir)
+    "The home of third party dir")
+(defvar echo-dir (expand-file-name "personal" current-dir)
+    "The home of my own init files")
+(add-to-list 'load-path third-party-package-dir)
+(add-to-list 'load-path echo-dir)
+(require 'echo)
+(require 'kolon-mode)
+;;; ack ;;;;
+;;(require 'ack-and-a-half)
+;; Create shorter aliases
+;;(defalias 'ack 'ack-and-a-half)
+;;(defalias 'ack-same 'ack-and-a-half-same)
+;;(defalias 'ack-find-file 'ack-and-a-half-find-file)
+;;(defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 
 ;;;;;; util function ;;;;;
 
