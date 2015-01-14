@@ -4,3 +4,6 @@ ac-comphist.dat
 *~
 todo/
 url/
+smex-items
+.emacs.desktop.lock
+.emacs.desktop

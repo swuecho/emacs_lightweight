@@ -16,6 +16,13 @@
 ;;;;;;;;;;;  UI ;;;;;;;;;;
 
 (menu-bar-mode -1)
+(menu-bar-mode 1)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(column-number-mode t)
+;;(rainbow-mode 1)
+;;(diminish 'rainbow-mode)
+(global-auto-revert-mode t)
 
 ; turn on line number display
 (global-linum-mode t)
@@ -92,8 +99,62 @@
 (setq merlin-error-after-save nil)
 
 
+
+;; save scratch
+(defun save-persistent-scratch ()
+    "Write the contents of *scratch* to the file name
+`persistent-scratch-file-name'."
+    (with-current-buffer (get-buffer-create "*scratch*")
+      (write-region (point-min) (point-max) "~/.emacs-persistent-scratch")))
+
+(defun load-persistent-scratch ()
+    "Load the contents of `persistent-scratch-file-name' into the
+  scratch buffer, clearing its contents first."
+    (if (file-exists-p "~/.emacs-persistent-scratch")
+	(with-current-buffer (get-buffer "*scratch*")
+	  (delete-region (point-min) (point-max))
+	  (insert-file-contents "~/.emacs-persistent-scratch"))))
+
+(push #'load-persistent-scratch after-init-hook)
+(push #'save-persistent-scratch kill-emacs-hook)
+
+(run-with-idle-timer 300 t 'save-persistent-scratch)
+
+
+;; save desktop
+(desktop-save-mode 1)
+
+(setq desktop-restore-eager 10)
+
+
+;; save desktop every 5 minutes
+
+(defun echo-desktop-save ()
+  "Write the desktop save file to ~/.emacs.d"
+  (desktop-save "/home/hwu/.emacs.d/"))
+
+(run-with-idle-timer 300 t 'echo-desktop-save)
+
+
+;;;;;; util function ;;;;;
+
+(defun gnulinuxp ()
+  "Returns t if the system is a GNU/Linux machine, otherwise nil"
+  (string-equal system-type "gnu/linux"))
+
+
+
+(defun osxp ()
+  "Returns t if the system is a Mac OS X machine, otherwise nil"
+    (string-equal system-type "darwin"))
+
+
+
+
+
 (provide 'echo-init)     
 
 
 
 ;;TODO write a blog about how to write a package in elisp
+

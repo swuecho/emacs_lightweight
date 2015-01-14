@@ -18,8 +18,6 @@
 ;;(require 'auto-complete-config)
 ;;(ac-config-default)
 
-(defun echo-add (x y)
-  (+ x y))
 
 ;; perl Data::Printer
 ;; TODO add global key map
@@ -34,6 +32,8 @@
   (insert "p $self;") 
   (insert "\n") 
   ) 
+
+
 
 ;; case transformation
 (defun un-camelcase-word-at-point ()

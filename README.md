@@ -29,3 +29,6 @@ add package to package-list, it will be autoinstalled if not already
 (symbol-name 'foo)
 foo
 
+## how to add a custom function and load if when emacs start?
+
+## how to load a file when emacs start?
