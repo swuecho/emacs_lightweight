@@ -47,12 +47,22 @@
 ;;(rainbow-mode 1)
 ;;(diminish 'rainbow-mode)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
 
+;; no backup filesw
+(setq make-backup-files nil)
 
 ;;;;;;;;;;;;;;; find file ;;;;;;;;;;;;;;;;;
 ;;(require 'ffap)
 ;;(ffap-bindings)
 ;;(setq ffap-require-prefix t)
+
+
+;; buffer management
+
+(global-set-key (kbd "M-]") 'next-buffer)
+(global-set-key (kbd "M-[") 'previous-buffer)
+
 
 ;; ido-mode
 (require 'ido)
@@ -99,9 +109,58 @@
 ;; JS
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 (add-hook 'js2-mode-hook 'flymake-mode)
 (add-hook 'js2-mode-hook 'auto-complete-mode)
 
+
+;;; web beautify;;;;;
+(require 'web-beautify) ;; Not necessary if using ELPA package
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+(eval-after-load 'js
+  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
+
+(eval-after-load 'json-mode
+  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+
+;;(eval-after-load 'sgml-mode
+;;  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+
+(eval-after-load 'css-mode
+  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+
+(eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook
+	     (lambda ()
+	       (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+
+;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+(eval-after-load 'js
+  '(add-hook 'js-mode-hook
+	     (lambda ()
+	       (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+
+(eval-after-load 'json-mode
+  '(add-hook 'json-mode-hook
+	     (lambda ()
+	       (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+
+(eval-after-load 'sgml-mode
+  '(add-hook 'html-mode-hook
+	     (lambda ()
+	       (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
+
+(eval-after-load 'css-mode
+  '(add-hook 'css-mode-hook
+	     (lambda ()
+	                      (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
+
+
+
+;;  perl tidy
+(require 'perltidy)
 
 ;;theme
 (load-theme 'solarized-dark t)
@@ -134,11 +193,6 @@
 		  (evil-set-initial-state mode 'emacs)))
       '(git-rebase-mode))
 
-
-;;; keyfreq ;;;
-(require 'keyfreq)
-(keyfreq-mode 1)
-(keyfreq-autosave-mode 1)
 
 ;;(add-to-list 'load-path "/Users/hwu/.opam/4.02.0/share/emacs/site-lisp")
 ;;(require 'ocp-indent)
@@ -256,7 +310,7 @@
   "Returns t if the system is a Mac OS X machine, otherwise nil"
     (string-equal system-type "darwin"))
 
-(require 'git-messenger)
+;;(require 'git-messenger)
 
 ;; do not use the keyboard shoutcuts
 ;;(add-hook 'prog-mode-hook (lambda ()
@@ -265,4 +319,3 @@
 
 
 ;;TODO write a blog about how to write a package in elisp
-
