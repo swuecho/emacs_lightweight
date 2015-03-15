@@ -59,10 +59,10 @@
 
 
 ;; buffer management
-
+;; todo change the key
 (global-set-key (kbd "M-]") 'next-buffer)
 (global-set-key (kbd "M-[") 'previous-buffer)
-
+(global-set-key (kbd "C-;") #'comment-line-or-region)
 
 ;; ido-mode
 (require 'ido)
@@ -122,8 +122,8 @@
 (eval-after-load 'js
   '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
 
-(eval-after-load 'json-mode
-  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+;;(eval-after-load 'json-mode
+ ;; '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
 
 ;;(eval-after-load 'sgml-mode
 ;;  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
@@ -159,21 +159,36 @@
 
 
 
-;;  perl tidy
-(require 'perltidy)
-
 ;;theme
 (load-theme 'solarized-dark t)
 
+;; TODO: make powerline work
+;; powerline
+;;(require 'powerline)
+;; (powerline-center-theme)
 ;; key binding
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
 ;; smex
+(require 'smex)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;; try to understand this
+(defun smex-prepare-ido-bindings ()
+  (define-key ido-completion-map
+    (kbd "C-,") 'smex-describe-function)
+  (define-key ido-completion-map
+    (kbd "C-w") 'smex-where-is)
+  (define-key ido-completion-map
+    (kbd "C-.") 'smex-find-function)
+  (define-key ido-completion-map
+    (kbd "C-a") 'move-beginning-of-line)
+  ;; (define-key ido-completion-map "\C-i" 'smex-helm)
+  ;; (define-key ido-completion-map " " 'smex-helm)
+    )
+
 
 ;; evil leader
 (require 'evil-leader)
@@ -200,7 +215,10 @@
 ;;(add-to-list 'load-path "~/.opam/4.02.0/share/tuareg")
 ;;(load "tuareg-site-file")
 
-
+;; TODO cedet
+;;(global-ede-mode 1)                      ; Enable the Project management system
+;;(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
+;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
 ;; smart complie perl 
 (require 'smart-compile)
 (add-to-list
@@ -298,6 +316,15 @@
 ;;(defalias 'ack-find-file 'ack-and-a-half-find-file)
 ;;(defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 
+;; smart-mode-line
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
+(add-to-list 'sml/replacer-regexp-list '("^/home/intellisurvey/versions/7.0/isbase" ":ISB:") t)
+(add-to-list 'sml/replacer-regexp-list '("^:ISB:/arch/IS" ":IS:") t)
+(add-to-list 'sml/replacer-regexp-list '("^:ISB:/html/admin/app" ":app:") t)
+(add-to-list 'sml/replacer-regexp-list '("^:ISB:/html/admin/app" ":app:") t)
+(add-to-list 'sml/replacer-regexp-list '("^:ISB:/testing/t" ":test:") t)
+
 ;;;;;; util function ;;;;;
 
 (defun gnulinuxp ()
@@ -319,3 +346,48 @@
 
 
 ;;TODO write a blog about how to write a package in elisp
+;;  perl tidy
+
+(require 'perltidy)
+;;
+;; C-x C-j is provided by dired-x which is part of Emacs, but not loaded by default. See C-h i g (dired-x) Optional Installation Dired Jump, or simply (require 'dired-x)
+;;
+(require 'dired-x)
+
+;;;###autoload
+(defun keys-describe-prefixes ()
+  (interactive)
+  (with-output-to-temp-buffer "*Bindings*"
+    (dolist (letter-group (list
+			   (cl-loop for c from ?a to ?z
+				    collect (string c))
+			   ))
+      (dolist (prefix '("" "C-" "M-" "C-M-"))
+	(princ (mapconcat
+		(lambda (letter)
+		  (let ((key (concat prefix letter)))
+		    (format ";; (global-set-key (kbd \"%s\") '%S)"
+			    key
+			    (key-binding (kbd key)))))
+		letter-group
+		"\n"))
+       	        (princ "\n\n")))))
+
+;; http://endlessparentheses.com/implementing-comment-line.html
+(defun comment-line-or-region (n)
+    "Comment or uncomment current line and leave point after it.
+With positive prefix, apply to N lines including current one.
+With negative prefix, apply to -N lines above.
+If region is active, apply to active region instead."
+    (interactive "p")
+    (if (use-region-p)
+	(comment-or-uncomment-region
+	 (region-beginning) (region-end))
+      (let ((range
+	     (list (line-beginning-position)
+		   (goto-char (line-end-position n)))))
+	(comment-or-uncomment-region
+	 (apply #'min range)
+	 (apply #'max range)))
+      (forward-line 1)
+          (back-to-indentation)))

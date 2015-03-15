@@ -1,0 +1,14 @@
+.tables
+exit
+;
+\q
+quit
+l
+;
+quit
+;
+?q
+;
+?q
+;
+.q
