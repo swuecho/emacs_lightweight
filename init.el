@@ -77,6 +77,7 @@
 (global-auto-revert-mode 1)
 
 ; turn on line number display
+; TODO: make the linum work with dark theme
 (global-linum-mode t)
 
 (setq linum-delay t
@@ -158,14 +159,21 @@
 	                      (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
 
 
-
+(load-theme 'solarized-light t)
+;; make the fringe stand out from the background
+(setq solarized-distinct-fringe-background t)
 ;;theme
-(load-theme 'solarized-dark t)
+;;(require 'solarized-dark-theme)
+;; TODO: fix the theme
+;;(load-theme 'solarized-dark t)
+;;(defun my-solarized-dark ()
+;  (interactive)
+;  (solarized-dark-theme)
+;  (set-face-attribute 'fringe nil :background "#CCC")
+;    (set-face-attribute 'linum nil :background "#CCC"))
+;(my-solarized-dark)
 
-;; TODO: make powerline work
-;; powerline
-;;(require 'powerline)
-;; (powerline-center-theme)
+
 ;; key binding
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -238,6 +246,7 @@
     'smart-compile-alist
     '("\\.pm\\'"   .   "perl -cw %f"))
 
+(evil-leader/set-key "c" 'smart-compile)
 
 ;;;;;;;;;;;;;; SQL ;;;;;;;;;;;;;;;;;;;
 (add-to-list 'same-window-buffer-names "*SQL*")
@@ -324,25 +333,6 @@
 (add-to-list 'sml/replacer-regexp-list '("^:ISB:/html/admin/app" ":app:") t)
 (add-to-list 'sml/replacer-regexp-list '("^:ISB:/html/admin/app" ":app:") t)
 (add-to-list 'sml/replacer-regexp-list '("^:ISB:/testing/t" ":test:") t)
-
-;;;;;; util function ;;;;;
-
-(defun gnulinuxp ()
-  "Returns t if the system is a GNU/Linux machine, otherwise nil"
-  (string-equal system-type "gnu/linux"))
-
-
-
-(defun osxp ()
-  "Returns t if the system is a Mac OS X machine, otherwise nil"
-    (string-equal system-type "darwin"))
-
-;;(require 'git-messenger)
-
-;; do not use the keyboard shoutcuts
-;;(add-hook 'prog-mode-hook (lambda ()
-;;(local-set-key (kbd "C-x v p") 'git-messenger:popup-message)
-;;(evil-leader/set-key "gb" 'git-messenger:popup-message)))
 
 
 ;;TODO write a blog about how to write a package in elisp

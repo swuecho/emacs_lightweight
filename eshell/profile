@@ -1,0 +1,29 @@
+Welcome to the Emacs shell
+
+(lambda nil
+  (concat ">>"
+	  (car
+	   (last
+	    (split-string
+	     (eshell/pwd)
+	     "/")))
+	  " $ "))
+/home/intellisurvey/versions/7.0/isbase/
+/home/intellisurvey/versions/7.0/isbase/arch/IS
+/home/intellisurvey/versions/7.0/isbase/testing/t
+/home/intellisurvey/versions/7.0/isbase/html/admin/app
+>>eshell $ ## elisp shell
+
+(setq eshell-prompt-function
+  (lambda nil
+    (concat
+     ">>"
+     (car (last (split-string (eshell/pwd) "/")))
+     " $ ")))
+
+# manipulate path based on the path itself
+
+(setq isbase "/home/intellisurvey/versions/7.0/isbase/") 
+(setq isi (concat isbase "arch/IS")) 
+(setq ist (concat isbase "testing/t")) 
+(setq isapp (concat isbase "html/admin/app"))

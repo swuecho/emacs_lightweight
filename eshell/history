@@ -1,0 +1,128 @@
+cat alias
+cat alias >>>#<buffer *scratch*>
+cat alias >>> #<buffer *scratch*>
+echo test  >>> #<buffer *scratch*>
+echo test > /dev/clisp
+echo test >>> /dev/clisp
+for i in 1 2 3 { echo $i }
+for i in $(ls) { echo $i }
+listify $(ls)
+Eshell-directory-name
+echo $Eshell-directory-name
+echo Eshell-directory-name
+alias ff 'find-file $1'
+ls
+ls
+eshell-prompt-function
+pwd
+ff profile
+ls
+ls
+exit
+ls
+ls
+ls
+ls
+ls
+ls
+cd
+ls
+cd ~/.emacs.d/
+ls
+cd eshell/
+ls
+ff profile 
+ls
+ls
+q
+ls
+ls
+isb
+cd all/
+ls
+pwd
+(file-name-directory pwd)
+(file-name-directory (pwd))
+(file-name-directory (pwd))
+(length (pwd))
+(substring (pwd) 14  24)
+(split-string-and-unquote (pwd))
+(split-string (pwd))
+(split-string (pwd) "/")
+(last (split-string (pwd) "/"))
+(butlast (split-string (pwd) "/"))
+(last (butlast (split-string (pwd) "/")))
+(last (butlast (split-string (pwd) "/")))
+ls
+cd
+cd .emacs.d/
+ls
+ff eshell/profile 
+ls
+ls
+t
+ls
+cd dotfiles/
+ls
+pwd
+ls
+cd ..
+ls
+cd all/
+ls
+pwd
+ls
+cd
+cd .emacs.d/eshell/
+ls
+ff profile 
+ls
+ls
+cd
+ls
+pwd
+cd /home/intellisurvey/
+ls
+ls
+ls
+cd
+cd
+ls
+cd all/
+ls
+ls
+cd
+ls
+ls
+ls
+cd /home/intellisurvey/versions/7.0/isbase/
+ls
+explicit-shell-file-name
+(set isbase (pwd))
+(setq isbase (pwd))
+echo $isbase
+(setq isbase (eshell/pwd))
+cd
+cd $isbase
+ls
+(set isbasex "/home/intellisurvey/versions/7.0/isbase/")
+(setq isbasex "/home/intellisurvey/versions/7.0/isbase/")
+cd
+cd $isbasex
+ls
+cd
+cd .emacs.d/
+ls
+isb
+ls
+exit
+isi
+ls
+ist
+ls
+isb
+ls
+ls
+isa
+ls
+exit

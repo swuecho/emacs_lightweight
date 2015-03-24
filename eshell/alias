@@ -1,0 +1,6 @@
+alias ff find-file $1
+alias ll ls -l
+alias isb cd $isbase
+alias isi cd $isi
+alias ist cd $ist
+alias isa cd $isapp

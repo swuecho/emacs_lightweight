@@ -22,18 +22,29 @@
 ;; perl Data::Printer
 ;; TODO add global key map
 
-
-
 (defun echo-data-printer () 
   "Insert Data::Printer p " 
   (interactive) 
-  (insert "\n") 
-  (insert "use Data::Printer;")
-  (insert "p $self;") 
-  (insert "\n") 
-  ) 
+  (insert "\nuse Data::Printer;\np $self")
+)
 
+;; stack trace
 
+(setq stacktrace-code "
+    use DDP; 
+    use Devel::StackTrace;
+    my $trace = Devel::StackTrace->new();
+
+    # from top (most recent) of stack to bottom.
+    while (my $frame = $trace->next_frame() ) {
+      p $frame;
+    }
+")
+
+(defun echo-insert-stackrace ()
+  "insert code to print out stack trace"
+  (interactive)
+  (insert stacktrace-code))
 
 ;; case transformation
 (defun un-camelcase-word-at-point ()
@@ -66,6 +77,25 @@ downcased, no preceding underscore.
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
-(provide 'echo)     
 
 ;;TODO write a blog about how to write a package in elisp
+;;;;;; util function ;;;;;
+
+(defun gnulinuxp ()
+  "Returns t if the system is a GNU/Linux machine, otherwise nil"
+  (string-equal system-type "gnu/linux"))
+
+
+(defun osxp ()
+  "Returns t if the system is a Mac OS X machine, otherwise nil"
+    (string-equal system-type "darwin"))
+
+;;(require 'git-messenger)
+
+;; do not use the keyboard shoutcuts
+;;(add-hook 'prog-mode-hook (lambda ()
+;;(local-set-key (kbd "C-x v p") 'git-messenger:popup-message)
+;;(evil-leader/set-key "gb" 'git-messenger:popup-message)))
+
+
+(provide 'echo)     
