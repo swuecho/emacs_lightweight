@@ -20,7 +20,7 @@
   (package-refresh-contents)) 
 ;; package-refesh-conetents is important
 ;; add package here 
-(setq package-list '(evil evil-leader smex auto-complete magit color-theme-solarized js2-mode))
+(setq package-list '(evil evil-leader smex auto-complete magit color-theme-solarized js2-mode tabbar  auto-highlight-symbol web-beautify smart-compile smart-mode-line))
 
 ;; install packages 
 ; install the missing packages
@@ -424,7 +424,9 @@ If region is active, apply to active region instead."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages
+   (quote
+    (smart-mode-line web-beautify tabbar smex smart-compile magit js2-mode evil-leader color-theme-solarized auto-highlight-symbol auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

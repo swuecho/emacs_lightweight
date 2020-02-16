@@ -7,3 +7,6 @@ url/
 smex-items
 .emacs.desktop.lock
 .emacs.desktop
+ido.last
+network-security.data
+transient/
