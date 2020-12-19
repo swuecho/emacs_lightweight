@@ -20,7 +20,7 @@
   (package-refresh-contents)) 
 ;; package-refesh-conetents is important
 ;; add package here 
-(setq package-list '(evil evil-leader smex auto-complete magit color-theme-solarized js2-mode tabbar  auto-highlight-symbol web-beautify smart-compile smart-mode-line))
+(setq package-list '(evil evil-leader smex auto-complete magit color-theme-solarized js2-mode tabbar  auto-highlight-symbol web-beautify smart-compile smart-mode-line org-journal))
 
 ;; install packages 
 ; install the missing packages
@@ -29,7 +29,19 @@
     (package-install package)))
 
 
-
+     (autoload 'forth-mode "gforth.el")
+     (setq auto-mode-alist (cons '("\\.fs\\'" . forth-mode)
+     			    auto-mode-alist))
+     (autoload 'forth-block-mode "gforth.el")
+     (setq auto-mode-alist (cons '("\\.fb\\'" . forth-block-mode)
+     			    auto-mode-alist))
+     (add-hook 'forth-mode-hook (function (lambda ()
+        ;; customize variables here:
+        (setq forth-indent-level 4)
+        (setq forth-minor-indent-level 2)
+        (setq forth-hilight-level 3)
+        ;;; ...
+     )))
 
 ;;;;;;;;;;;;;;;;UI;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -64,6 +76,8 @@
 (global-set-key (kbd "M-[") 'previous-buffer)
 (global-set-key (kbd "C-;") #'comment-line-or-region)
 
+;; org-journal
+(require 'org-journal)
 ;; ido-mode
 (require 'ido)
 (ido-mode t); enable ido-mode
@@ -426,7 +440,7 @@ If region is active, apply to active region instead."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smart-mode-line web-beautify tabbar smex smart-compile magit js2-mode evil-leader color-theme-solarized auto-highlight-symbol auto-complete))))
+    (org-journal smart-mode-line web-beautify tabbar smex smart-compile magit js2-mode evil-leader color-theme-solarized auto-highlight-symbol auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,0 +1,2 @@
+#s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("/Users/hwu/Documents/journal/20200216" (2 16 2020)))
+#s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("/Users/hwu/Documents/journal/20200216" (24136 44116 813860 762000)))
